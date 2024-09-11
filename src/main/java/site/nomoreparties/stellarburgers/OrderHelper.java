@@ -1,2 +1,11 @@
-package site.nomoreparties.stellarburgers;public class OrderHelper {
+package site.nomoreparties.stellarburgers;
+
+import java.util.List;
+
+public class OrderHelper {
+    public static Order addOrder() {
+        Order order = new Order();
+        order.ingredients = List.of("61c0c5a71d1f82001bdaaa6c");
+        return order;
+    }
 }
