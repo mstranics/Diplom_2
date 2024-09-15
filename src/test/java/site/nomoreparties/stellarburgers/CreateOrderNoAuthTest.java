@@ -2,8 +2,7 @@ package site.nomoreparties.stellarburgers;
 
 import io.qameta.allure.junit4.DisplayName;
 import static org.apache.http.HttpStatus.*;
-import io.qameta.allure.restassured.AllureRestAssured;
-import io.restassured.RestAssured;
+
 import io.restassured.response.ValidatableResponse;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +25,7 @@ public class CreateOrderNoAuthTest {
 
     @Test
     @DisplayName("Creation of Order with no authorization")
-    public void createOrderNoAuth() {
+    public void orderNotCreatedWithoutAuth() {
 
 
         ValidatableResponse createResponse = orderClient.create(order);

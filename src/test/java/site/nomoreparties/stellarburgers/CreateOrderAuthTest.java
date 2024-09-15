@@ -2,7 +2,6 @@ package site.nomoreparties.stellarburgers;
 
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
-import org.apache.http.HttpStatus;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -62,7 +61,7 @@ public class CreateOrderAuthTest {
 
     @Test
     @DisplayName("Creation of Order with authorization and different ingredients")
-    public void createOrderDiffIng() {
+    public void orderCreatedWithDifferentIngs() {
         order.setIngredients(ingredients);
 
         ValidatableResponse createResponse = orderClient.create(order, accessToken);

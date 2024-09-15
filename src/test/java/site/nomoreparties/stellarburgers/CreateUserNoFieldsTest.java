@@ -2,7 +2,7 @@ package site.nomoreparties.stellarburgers;
 
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
-import org.junit.After;
+
 import static org.apache.http.HttpStatus.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,7 +45,7 @@ public class CreateUserNoFieldsTest {
 
     private User user;
     private UserClient userClient;
-    private String accessToken;
+
 
     @Before
     public void setUp() {
@@ -56,7 +56,7 @@ public class CreateUserNoFieldsTest {
 
     @Test
     @DisplayName("Creation of user without mandatory fields")
-    public void createUserNoRequiredFields() {
+    public void userNotCreatedWithoutRequiredFields() {
         user.setEmail(email);
         user.setName(name);
         user.setPassword(password);

@@ -9,7 +9,6 @@ import lombok.*;
 @Setter
 public class User {
 
-
     String email;
     String password;
     String name;

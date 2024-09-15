@@ -40,7 +40,7 @@ public class LoginUserTest {
 
     @Test
     @DisplayName("User can't login with wrong email")
-    public void userLoginWrongEmail() {
+    public void userNotLoggedWrongEmail() {
         user.setEmail("email@example.com");
         ValidatableResponse loginResponse = userClient.login(UserCreds.from(user));
         assertEquals("коды ответов не совпадают", SC_UNAUTHORIZED, loginResponse.extract().statusCode());
@@ -49,7 +49,7 @@ public class LoginUserTest {
 
     @Test
     @DisplayName("User can't login with wrong password")
-    public void userLoginWrongPass() {
+    public void userNotLoggedWrongPass() {
         user.setPassword("somepass");
         ValidatableResponse loginResponse = userClient.login(UserCreds.from(user));
         assertEquals("коды ответов не совпадают", SC_UNAUTHORIZED, loginResponse.extract().statusCode());
