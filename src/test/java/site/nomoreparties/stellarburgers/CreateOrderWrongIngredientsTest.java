@@ -13,10 +13,10 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.apache.http.HttpStatus.*;
 @RunWith(Parameterized.class)
-public class CreateOrderAuthTest {
+public class CreateOrderWrongIngredientsTest {
 
 
-    public CreateOrderAuthTest(List<String> ingredients, int exCode) {
+    public CreateOrderWrongIngredientsTest(List<String> ingredients, int exCode) {
         this.ingredients = ingredients;
         this.exCode = exCode;
     }
@@ -28,8 +28,7 @@ public class CreateOrderAuthTest {
     @Parameterized.Parameters
     public static Object[][] getIngridientsData() {
         return new Object[][]{
-                {List.of("61c0c5a71d1f82001bdaaa6d"), SC_OK},
-                {List.of("61c0c5a71d1f82001bdaaa6f", "61c0c5a71d1f82001bdaaa6d"), SC_OK},
+
                 {List.of("someId"), SC_INTERNAL_SERVER_ERROR},
                 {null, SC_BAD_REQUEST},
 
@@ -39,18 +38,23 @@ public class CreateOrderAuthTest {
 
     private User user;
     private UserClient userClient;
+    private IngredientsClient ingredientsClient;
     private String accessToken;
     private Order order;
     private OrderClient orderClient;
+    private static List<String> ingredientsList;
 
     @Before
     public void setUp() {
+        ingredientsClient= new IngredientsClient();
+        ValidatableResponse listResponse =ingredientsClient.list();
+        ingredientsList=listResponse.extract().jsonPath().getList("data._id");
         userClient = new UserClient();
         user = UserHelper.addUser();
         ValidatableResponse createResponse = userClient.create(user);
         accessToken = createResponse.extract().path("accessToken");
         orderClient = new OrderClient();
-        order = OrderHelper.addOrder();
+        order = OrderHelper.addOrder(ingredientsList);
     }
 
     @After

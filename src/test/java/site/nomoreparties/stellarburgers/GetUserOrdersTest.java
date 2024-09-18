@@ -6,6 +6,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.apache.http.HttpStatus.*;
 
@@ -19,15 +21,19 @@ public class GetUserOrdersTest {
     private Order order;
     private OrderClient orderClient;
     private String orderID;
-
+    private IngredientsClient ingredientsClient;
+    private static List<String> ingredientsList;
     @Before
     public void setUp() {
+        ingredientsClient= new IngredientsClient();
+        ValidatableResponse listResponse =ingredientsClient.list();
+        ingredientsList=listResponse.extract().jsonPath().getList("data._id");
         userClient = new UserClient();
         user = UserHelper.addUser();
         ValidatableResponse createResponse = userClient.create(user);
         accessToken = createResponse.extract().path("accessToken");
         orderClient = new OrderClient();
-        order = OrderHelper.addOrder();
+        order = OrderHelper.addOrder(ingredientsList);
         ValidatableResponse createOrderResponse = orderClient.create(order, accessToken);
         assertEquals("коды ответов не совпадают", SC_OK, createOrderResponse.extract().statusCode());
         orderID = createOrderResponse.extract().path("order._id");
