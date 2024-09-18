@@ -11,6 +11,6 @@ import java.util.List;
 @NoArgsConstructor
 public class Order {
 
-    List<String> ingredients;
+   private    List<String> ingredients;
 
 }
